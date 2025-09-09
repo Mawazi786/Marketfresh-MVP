@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MarketFresh - Grocery Delivery</title>
+    <script src="https://js.paystack.co/v1/inline.js"></script>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>MarketFresh</h1>
+            <p>Fresh from the market to your door</p>
+        </header>
+
+        <div class="flex-container">
+            <div class="main-content">
+                <div class="card">
+                    <h2>Our Products</h2>
+                    <div class="product-grid">
+                        <div class="product">
+                            <h3>Organic Avocados (1kg)</h3>
+                            <p>Price: R 75.00</p>
+                            <button onclick="addToCart('Organic Avocados', 75)">Add to Cart</button>
+                        </div>
+                        <div class="product">
+                            <h3>Artisanal Sourdough Bread</h3>
+                            <p>Price: R 45.00</p>
+                            <button onclick="addToCart('Sourdough Bread', 45)">Add to Cart</button>
+                        </div>
+                        <div class="product">
+                            <h3>Free-Range Eggs (Dozen)</h3>
+                            <p>Price: R 35.00</p>
+                            <button onclick="addToCart('Free-Range Eggs', 35)">Add to Cart</button>
+                        </div>
+                        <div class="product">
+                            <h3>Fresh Strawberries (250g)</h3>
+                            <p>Price: R 60.00</p>
+                            <button onclick="addToCart('Fresh Strawberries', 60)">Add to Cart</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card" id="cart">
+                    <h2>Your Cart</h2>
+                    <div id="cart-items">
+                        <p>Your cart is empty</p>
+                    </div>
+                    <div class="cart-total">
+                        <p>Total: R <span id="cart-total">0.00</span></p>
+                        <p>+ Estimated Delivery Fee: R 35.00</p>
+                        <p><strong>Grand Total: R <span id="grand-total">0.00</span></strong></p>
+                    </div>
+                    <button onclick="checkout()">Proceed to Checkout</button>
+                </div>
+            </div>
+
+            <div class="sidebar">
+                <div class="card" id="merchant-dash">
+                    <h2>Order Status</h2>
+                    <div id="order-status" class="status-message info">
+                        <p>No active orders.</p>
+                    </div>
+                    <div id="verification-process" class="verification-steps" style="display: none;">
+                        <h3>POD Verification Steps</h3>
+                        <div class="verification-step">
+                            <span class="verification-icon" id="card-verification-icon">⏳</span>
+                            <span>Card Validity Check</span>
+                        </div>
+                        <div class="verification-step">
+                            <span class="verification-icon" id="funds-verification-icon">⏳</span>
+                            <span>Funds Availability Check</span>
+                        </div>
+                    </div>
+                    <button onclick="simulateDelivery()" disabled id="deliver-btn">Simulate Successful Delivery</button>
+                    
+                    <div class="test-panel">
+                        <h3>Testing Controls</h3>
+                        <p>Use these controls to test different POD scenarios:</p>
+                        <div class="test-controls">
+                            <button onclick="setTestScenario('card_fail')">Test Card Failure</button>
+                            <button onclick="setTestScenario('funds_fail')">Test Funds Failure</button>
+                            <button onclick="setTestScenario('both_success')">Test Both Success</button>
+                            <button onclick="resetTestScenario()">Reset to Random</button>
+                        </div>
+                        <div id="test-status">Current test mode: Random outcomes</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- The Payment Options Modal -->
+        <div id="paymentModal" class="modal">
+            <div class="modal-content">
+                <h2>Choose Your Payment Method</h2>
+                <p>Your total is R <span id="modal-total-amount">0.00</span></p>
+                <div class="modal-buttons">
+                    <button onclick="handlePaymentChoice('paynow')">Pay Now</button>
+                    <button onclick="handlePaymentChoice('pod')">Pay on Delivery</button>
+                    <button class="cancel" onclick="handlePaymentChoice('cancel')">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
